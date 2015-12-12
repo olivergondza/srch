@@ -1,4 +1,3 @@
-#CONFIG_DIR=$(readlink -f $TEST_DIR/..)
 BROWSER="echo"
 
 TST="Use google.com"

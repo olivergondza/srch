@@ -11,7 +11,7 @@ fi
 engine=$1
 shift
 
-engine_config="$CONFIG_DIR/engine/$engine"
+engine_config="$CONFIG_DIR/engines/$engine"
 if [ ! -f "$engine_config" ]; then
 	echo "No engine '$engine' configured"
 	exit 1
