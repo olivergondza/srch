@@ -1,0 +1,26 @@
+#!/bin/bash
+
+: ${CONFIG_DIR="$(readlink -f ~/.srch)"}
+
+
+if [ $# -lt 1 ]; then
+	echo "No search term specified"
+	exit 1
+fi
+
+engine=$1
+shift
+
+engine_config="$CONFIG_DIR/engine/$engine"
+if [ ! -f "$engine_config" ]; then
+	echo "No engine '$engine' configured"
+	exit 1
+fi
+
+if [ -f $CONFIG_DIR/config ]; then
+	. $CONFIG_DIR/config
+fi
+
+. $engine_config
+
+$BROWSER "$(eval "echo ${URL}")" &
