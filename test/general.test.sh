@@ -29,3 +29,13 @@ fi
 if [[ "$out" != 'first=1 second=2 all=1 2 3' ]]; then
     fail "Should start BROWSER with assembled url. Actual: $out"
 fi
+
+TST="Escape special chars"
+out=$(CONFIG_DIR="$TEST_DIR/res/mock-engine/" "$SRCH" print ':/?' '#[]' @ '!$' "&'()" '*+,;=')
+if [ $? != 0 ]; then
+    fail "Command should succeed. Exit code $?"
+fi
+
+if [[ "$out" != 'first=%3a%2f%3f second=%23%5b%5d all=%3a%2f%3f %23%5b%5d %40 %21%24 %26%27%28%29 %2a%2b%2c%3b%3d' ]]; then
+    fail "Should start BROWSER with assembled url. Actual: $out"
+fi

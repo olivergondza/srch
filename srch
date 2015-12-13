@@ -2,10 +2,31 @@
 
 : ${CONFIG_DIR="$(readlink -f ~/.srch)"}
 
+# http://stackoverflow.com/a/10660730/2091470
+function _rawurlencode() {
+    local string="${1}"
+    local strlen=${#string}
+    local encoded=""
+    local pos=0
+
+    for (( ; pos<strlen ; pos++ )); do
+       c=${string:$pos:1}
+       case "$c" in
+          [-_.~a-zA-Z0-9] )
+              o="${c}"
+          ;;
+          * )
+              printf -v o '%%%02x' "'$c"
+          ;;
+       esac
+       encoded+="${o}"
+    done
+    eval "$2='$encoded'"
+}
 
 if [ $# -lt 1 ]; then
-	echo "No search term specified"
-	exit 1
+    echo "No search term specified"
+    exit 1
 fi
 
 engine=$1
@@ -13,14 +34,22 @@ shift
 
 engine_config="$CONFIG_DIR/engines/$engine"
 if [ ! -f "$engine_config" ]; then
-	echo "No engine '$engine' configured"
-	exit 1
+    echo "No engine '$engine' configured"
+    exit 1
 fi
 
 if [ -f $CONFIG_DIR/config ]; then
-	. $CONFIG_DIR/config
+    . $CONFIG_DIR/config
 fi
 
 . $engine_config
 
-$BROWSER "$(eval "echo ${URL}")" &
+# urlencode all args
+args=( "$@" )
+for (( pos=0 ; pos<${#args[@]} ; pos++ )); do
+    _rawurlencode "${args[pos]}" "arg"
+    args[$pos]=$arg
+done
+set -- "${args[@]}" # Set encoded values to positional args
+
+exec $BROWSER "$(eval "echo ${URL}")"
