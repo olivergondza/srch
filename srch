@@ -1,6 +1,8 @@
 #!/bin/bash
 
-: ${CONFIG_DIR="$(readlink -f ~/.srch)"}
+: ${SRCH_DIR="$(readlink -f ~/.srch)"}
+: ${SRCH_CONFIG="$SRCH_DIR/config"}
+: ${SRCH_ENGINES="$SRCH_DIR/engines"}
 
 # http://stackoverflow.com/a/10660730/2091470
 function _rawurlencode() {
@@ -32,20 +34,24 @@ fi
 engine=$1
 shift
 
-engine_config="$CONFIG_DIR/engines/$engine"
+engine_config="$SRCH_ENGINES/$engine"
 if [ ! -f "$engine_config" ]; then
     echo "No engine '$engine' configured"
     exit 1
 fi
 
-if [ -f $CONFIG_DIR/config ]; then
-    . $CONFIG_DIR/config
+if [ -f $SRCH_CONFIG ]; then
+    . $SRCH_CONFIG
 fi
 
 . $engine_config
 
 # urlencode all args
-args=( "$@" )
+if [ $# -eq 0 ]; then
+  args=( "$(cat)" )
+else
+  args=( "$@" )
+fi
 for (( pos=0 ; pos<${#args[@]} ; pos++ )); do
     _rawurlencode "${args[pos]}" "arg"
     args[$pos]=$arg

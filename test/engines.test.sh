@@ -1,4 +1,4 @@
-BROWSER="echo"
+export SRCH_CONFIG="$TEST_DIR/res/mock-srch/config"
 
 TST="Use google.com"
 out=$("$SRCH" g nee dle)
