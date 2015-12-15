@@ -6,7 +6,7 @@ if [ $? == 0 ]; then
     fail "Command should fail. Exit code $?"
 fi
 
-if [[ "$err" != *"No search term specified"* ]]; then
+if [[ "$err" != *"No search engine specified"* ]]; then
     fail "Command should fail with error. Actual: $err"
 fi
 

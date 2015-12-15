@@ -18,6 +18,14 @@ To search using custom query, use `srch <ENGINE> SEARCH_QUERY`. The interpretati
 
 To discover what engines are available and what they do, run `srch` without any arguments.
 
+## Autocompletion
+
+To enable SRCH autocompletion source `~/.srch/completion/bash.sh` (for instance) from .bashrc. In case you are using custom alias, remember to register that alias for completion s well.
+
+    . ~/.srch/completion/bash.sh
+    alias s='~/.srch/srch'
+    complete -o nospace -F _srch s
+
 ## Creating custom search engines
 
 Whole configuration is stored in `$SRCH_DIR/engines/<ENGINE_NAME>`. It is a bash script that is expected to declare a couple of variables/functions:
