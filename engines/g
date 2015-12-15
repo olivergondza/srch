@@ -1,1 +1,2 @@
-URL='https://www.google.cz/search?q=$@'
+DESCRIPTION="Search google.com"
+URL='https://www.google.com/search?q=%s'

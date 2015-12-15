@@ -26,8 +26,17 @@ function _rawurlencode() {
     eval "$2='$encoded'"
 }
 
+function _print_engines() {
+    echo "Available engines:"
+    for e in $(ls $SRCH_ENGINES/); do
+        . "$SRCH_ENGINES/$e"
+        echo -e "\t $e\t$DESCRIPTION"
+    done
+}
+
 if [ $# -lt 1 ]; then
-    echo "No search term specified" >&2
+    echo "No search engine specified" >&2
+    _print_engines >&2
     exit 1
 fi
 
@@ -37,11 +46,12 @@ shift
 engine_config="$SRCH_ENGINES/$engine"
 if [ ! -f "$engine_config" ]; then
     echo "No engine '$engine' configured"  >&2
+    _print_engines >&2
     exit 1
 fi
 
-if [ -f $SRCH_CONFIG ]; then
-    . $SRCH_CONFIG
+if [ -f "$SRCH_CONFIG" ]; then
+    . "$SRCH_CONFIG"
 fi
 
 . $engine_config

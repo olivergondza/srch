@@ -1,1 +1,2 @@
+DESCRIPTION="Search en.wikipedia.org"
 URL='http://en.wikipedia.org/w/index.php?search=$@'
