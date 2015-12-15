@@ -1,0 +1,4 @@
+#!/bin/bash
+# SRCH main config file.
+
+# Variables declared here will be available for all the engines and invocation of BROWSER.
