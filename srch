@@ -31,6 +31,7 @@ function _print_engines() {
     for e in $(ls $SRCH_ENGINES/); do
         . "$SRCH_ENGINES/$e"
         echo -e "\t $e\t$DESCRIPTION"
+        unset DESCRIPTION
     done
 }
 
