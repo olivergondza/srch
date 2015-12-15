@@ -27,7 +27,7 @@ function _rawurlencode() {
 }
 
 if [ $# -lt 1 ]; then
-    echo "No search term specified"
+    echo "No search term specified" >&2
     exit 1
 fi
 
@@ -36,7 +36,7 @@ shift
 
 engine_config="$SRCH_ENGINES/$engine"
 if [ ! -f "$engine_config" ]; then
-    echo "No engine '$engine' configured"
+    echo "No engine '$engine' configured"  >&2
     exit 1
 fi
 
