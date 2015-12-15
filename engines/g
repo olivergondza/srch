@@ -1,2 +1,2 @@
 DESCRIPTION="Search google.com"
-URL='https://www.google.com/search?q=%s'
+URL='https://www.google.com/search?q=$@'
