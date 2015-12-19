@@ -1,17 +1,6 @@
 TEST_DIR="$( cd "$( dirname "$0" )" && pwd )"
-SRCH=$(readlink -f $TEST_DIR/../srch)
-
-function array_contains() {
-    local needle=$1
-    shift
-
-    for ((i=1; i<=$#; i++)) {
-        if [ "${!i}" == "$needle" ]; then
-            return 0
-        fi
-    }
-    return 1
-}
+SRCH_DIR=$(readlink -f $TEST_DIR/..)
+SRCH="$SRCH_DIR/srch"
 
 failed=0
 function fail() {
@@ -19,6 +8,8 @@ function fail() {
 	echo " - $TST" >&2
 	echo -e "\t$1"
 }
+
+. "$SRCH_DIR/lib/lib.sh"
 
 for i in $(ls $TEST_DIR/*.test.sh); do
 	echo ":: running $(basename "$i") ::" >&2
