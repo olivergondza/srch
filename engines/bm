@@ -1,0 +1,2 @@
+DESCRIPTION="Search youtube.com"
+URL='https://beaker.engineering.redhat.com/view/$1.mw.lab.eng.bos.redhat.com'
