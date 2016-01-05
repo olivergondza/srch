@@ -23,8 +23,8 @@ To discover what engines are available and what they do, run `srch` without any 
 To enable SRCH autocompletion source `~/.srch/completion/bash.sh` (for instance) from .bashrc. In case you are using custom alias, remember to register that alias for completion s well.
 
     . ~/.srch/completion/bash.sh
-    alias s='~/.srch/srch'
-    complete -o nospace -F _srch s
+    # Create custom alias 's' and register it for autocompletion
+    alias s='~/.srch/srch' && complete -o nospace -F _srch s
 
 ## Creating custom search engines
 
