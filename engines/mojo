@@ -1,0 +1,2 @@
+DESCRIPTION="Search mojo.redhat.com"
+URL='https://mojo.redhat.com/search.jspa?q=$@'

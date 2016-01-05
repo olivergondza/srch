@@ -1,0 +1,2 @@
+DESCRIPTION="Search using search.corp.redhat.com"
+URL='https://search.corp.redhat.com/search?q=$@&s=0&dqo=OR&f=_lw_data_source_s:%22mojoconn%22&f=_lw_data_source_s:%22pnt_portal%22&f=_lw_data_source_s:%22intranet%22&f=_lw_data_source_s:%22confluence%22&f=_lw_data_source_s:%22prod_doc_new%22&f=_lw_data_source_s:%22dotcom%22&f=_lw_data_source_s:%22devblog%22&f=_lw_data_source_s:%22mailman%22'
