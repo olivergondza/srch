@@ -69,4 +69,4 @@ for (( pos=0 ; pos<${#args[@]} ; pos++ )); do
 done
 set -- "${args[@]}" # Set encoded values to positional args
 
-exec $BROWSER "$(eval "echo ${URL}")"
+exec $BROWSER "$(eval "echo \"${URL}\"")"
