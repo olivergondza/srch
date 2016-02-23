@@ -48,11 +48,6 @@ if [ ! -f "$SRCH_CONFIG" ]; then
     echo "Illegal SRCH_CONFIG provided: $SRCH_CONFIG" >&2
     exit 1
 fi
-# if [ $# -lt 1 ]; then
-#     echo "No search engine specified" >&2
-#     _print_engines >&2
-#     exit 1
-# fi
 
 if [ -f "$SRCH_CONFIG" ]; then
     . "$SRCH_CONFIG"
@@ -64,7 +59,6 @@ if [ ! -z "$SRCH_DEFAULT_ENGINE" -a ! -f "$SRCH_ENGINES/$SRCH_DEFAULT_ENGINE" ];
     exit 1
 fi
 
-
 engine="$SRCH_DEFAULT_ENGINE"
 if [ -f "$SRCH_ENGINES/$1" -o -z "$SRCH_DEFAULT_ENGINE" ]; then
     engine="$1"
@@ -72,7 +66,11 @@ if [ -f "$SRCH_ENGINES/$1" -o -z "$SRCH_DEFAULT_ENGINE" ]; then
 fi
 engine_config="$SRCH_ENGINES/$engine"
 if [ ! -f "$engine_config" ]; then
-    echo "No engine '$engine' configured"  >&2
+    if [ -z "$engine" ]; then
+        echo "No search engine specified"  >&2
+    else
+        echo "No engine '$engine' configured"  >&2
+    fi
     _print_engines >&2
     exit 1
 fi
