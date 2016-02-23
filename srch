@@ -1,9 +1,5 @@
 #!/bin/bash
 
-: ${SRCH_DIR="$(readlink -f ~/.srch)"}
-: ${SRCH_CONFIG="$SRCH_DIR/config"}
-: ${SRCH_ENGINES="$SRCH_DIR/engines"}
-
 # http://stackoverflow.com/a/10660730/2091470
 function _rawurlencode() {
     local string="${1}"
@@ -35,6 +31,23 @@ function _print_engines() {
     done
 }
 
+########
+
+: ${SRCH_DIR="$(readlink -f ~/.srch)"}
+: ${SRCH_CONFIG="$SRCH_DIR/config"}
+: ${SRCH_ENGINES="$SRCH_DIR/engines"}
+if [ ! -d "$SRCH_DIR/engines" ]; then
+    echo "Illegal SRCH_DIR provided: $SRCH_DIR" >&2
+    exit 1
+fi
+if [ ! -d "$SRCH_ENGINES" ]; then
+    echo "Illegal SRCH_ENGINES provided: $SRCH_ENGINES" >&2
+    exit 1
+fi
+if [ ! -f "$SRCH_CONFIG" ]; then
+    echo "Illegal SRCH_CONFIG provided: $SRCH_CONFIG" >&2
+    exit 1
+fi
 if [ $# -lt 1 ]; then
     echo "No search engine specified" >&2
     _print_engines >&2
