@@ -10,22 +10,22 @@ function _run() {
 
 TST="List all engines"
 _run ""
-if ! array_contains ddg "${COMPREPLY[@]}"; then
-    fail "ddg should be suggested: ${COMPREPLY[@]}"
+if ! array_contains github.com "${COMPREPLY[@]}"; then
+    fail "github.com should be suggested: ${COMPREPLY[@]}"
 fi
 
-if ! array_contains yt "${COMPREPLY[@]}"; then
+if ! array_contains youtube.com "${COMPREPLY[@]}"; then
     echo "${COMPREPLY[@]}"
-    fail "yt should be suggested: ${COMPREPLY[@]}"
+    fail "youtube.com should be suggested: ${COMPREPLY[@]}"
 fi
 
 TST="List some engines"
 _run "g"
-if ! array_contains g "${COMPREPLY[@]}"; then
-    fail "g should be suggested: ${COMPREPLY[@]}"
+if ! array_contains google.com "${COMPREPLY[@]}"; then
+    fail "google.com should be suggested: ${COMPREPLY[@]}"
 fi
 
-if ! array_contains gh "${COMPREPLY[@]}"; then
+if ! array_contains github.com "${COMPREPLY[@]}"; then
     echo "${COMPREPLY[@]}"
-    fail "gh should be suggested: ${COMPREPLY[@]}"
+    fail "github.com should be suggested: ${COMPREPLY[@]}"
 fi
