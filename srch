@@ -82,7 +82,13 @@ fi
 # urlencode all args
 if [ $# -eq 0 ]; then
   echo "Readig search string from STDIN..." >&2
-  args=( "$(cat)" )
+  arg="$(cat)"
+  if grep -P '\w' <<< "$arg" > /dev/null; then
+      args=( "$arg" )
+  else
+      # Only whitespace provided via stdin - aborting
+      exit 0
+  fi
 else
   args=( "$@" )
 fi
