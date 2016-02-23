@@ -72,6 +72,7 @@ fi
 
 # urlencode all args
 if [ $# -eq 0 ]; then
+  echo "Readig search string from STDIN..." >&2
   args=( "$(cat)" )
 else
   args=( "$@" )
