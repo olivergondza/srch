@@ -1,9 +1,5 @@
 #!/bin/bash
 
-: ${SRCH_DIR="$(readlink -f ~/.srch)"}
-: ${SRCH_CONFIG="$SRCH_DIR/config"}
-: ${SRCH_ENGINES="$SRCH_DIR/engines"}
-
 # http://stackoverflow.com/a/10660730/2091470
 function _rawurlencode() {
     local string="${1}"
@@ -35,19 +31,21 @@ function _print_engines() {
     done
 }
 
-if [ $# -lt 1 ]; then
-    echo "No search engine specified" >&2
-    _print_engines >&2
+########
+
+: ${SRCH_DIR="$(readlink -f ~/.srch)"}
+: ${SRCH_CONFIG="$SRCH_DIR/config"}
+: ${SRCH_ENGINES="$SRCH_DIR/engines"}
+if [ ! -d "$SRCH_DIR/engines" ]; then
+    echo "Illegal SRCH_DIR provided: $SRCH_DIR" >&2
     exit 1
 fi
-
-engine=$1
-shift
-
-engine_config="$SRCH_ENGINES/$engine"
-if [ ! -f "$engine_config" ]; then
-    echo "No engine '$engine' configured"  >&2
-    _print_engines >&2
+if [ ! -d "$SRCH_ENGINES" ]; then
+    echo "Illegal SRCH_ENGINES provided: $SRCH_ENGINES" >&2
+    exit 1
+fi
+if [ ! -f "$SRCH_CONFIG" ]; then
+    echo "Illegal SRCH_CONFIG provided: $SRCH_CONFIG" >&2
     exit 1
 fi
 
@@ -55,11 +53,40 @@ if [ -f "$SRCH_CONFIG" ]; then
     . "$SRCH_CONFIG"
 fi
 
+if [ ! -z "$SRCH_DEFAULT_ENGINE" -a ! -f "$SRCH_ENGINES/$SRCH_DEFAULT_ENGINE" ]; then
+    echo "SRCH_DEFAULT_ENGINE does not exist: $SRCH_DEFAULT_ENGINE" 2>&1
+    _print_engines >&2
+    exit 1
+fi
+
+engine="$SRCH_DEFAULT_ENGINE"
+if [ -f "$SRCH_ENGINES/$1" -o -z "$SRCH_DEFAULT_ENGINE" ]; then
+    engine="$1"
+    shift
+fi
+engine_config="$SRCH_ENGINES/$engine"
+if [ ! -f "$engine_config" ]; then
+    if [ -z "$engine" ]; then
+        echo "No search engine specified"  >&2
+    else
+        echo "No engine '$engine' configured"  >&2
+    fi
+    _print_engines >&2
+    exit 1
+fi
+
 . $engine_config
 
 # urlencode all args
 if [ $# -eq 0 ]; then
-  args=( "$(cat)" )
+  echo "Readig search string from STDIN..." >&2
+  arg="$(cat)"
+  if grep -P '\w' <<< "$arg" > /dev/null; then
+      args=( "$arg" )
+  else
+      # Only whitespace provided via stdin - aborting
+      exit 0
+  fi
 else
   args=( "$@" )
 fi
