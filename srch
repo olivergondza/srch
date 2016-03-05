@@ -59,6 +59,21 @@ if [ ! -z "$SRCH_DEFAULT_ENGINE" -a ! -f "$SRCH_ENGINES/$SRCH_DEFAULT_ENGINE" ];
     exit 1
 fi
 
+if [ "$1" == '-h' -o "$1" == '--help' ]; then
+    printf "Usage $0 <ENGINE_NAME> <SEARCH_STRING>\n\n"
+
+    printf "SEARCH_STRING argument can be omitted to read it from STDIN. In case there is a default engine configured, it can be omitted too.\n\n"
+
+    if [ ! -z "$SRCH_DEFAULT_ENGINE" ]; then
+        printf "Default engine: $SRCH_DEFAULT_ENGINE\n\n"
+    fi
+
+    _print_engines
+
+    printf "\nConfig directory: $SRCH_CONFIG\n"
+    exit 0
+fi
+
 engine="$SRCH_DEFAULT_ENGINE"
 if [ -f "$SRCH_ENGINES/$1" -o -z "$SRCH_DEFAULT_ENGINE" ]; then
     engine="$1"
