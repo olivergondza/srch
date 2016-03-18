@@ -1,2 +1,2 @@
-DESCRIPTION="Search youtube.com"
+DESCRIPTION="Search Breaker for *.mw.lab.eng.bos.redhat.com machines"
 URL='https://beaker.engineering.redhat.com/view/$1.mw.lab.eng.bos.redhat.com'
