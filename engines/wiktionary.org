@@ -1,0 +1,2 @@
+DESCRIPTION="Search wiktionary.org"
+URL='https://en.wiktionary.org/wiki/$@'
