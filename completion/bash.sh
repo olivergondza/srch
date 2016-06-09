@@ -9,4 +9,4 @@ function _srch() {
     return 0
 }
 
-complete -o nospace -F _srch srch
+complete -F _srch srch
