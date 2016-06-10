@@ -34,7 +34,8 @@ To declare new engine it is needed to create new bash script that is expected to
 
 #### `URL` (required)
 
-Variable contains the URL pattern to be opened. All url encoded `SEARCH_QUERY` arguments are available via `$1`, `$2`, etc. as well as `$@`.
+Either a variable containing the URL pattern to be opened. All url encoded `SEARCH_QUERY` arguments are available via `$1`, `$2`, etc. as well as `$@`.
+Or a function that accepts encoded SEARCH_QUERY as arguments and print the desired url on STDOUT.
 
 #### `DESCRIPTION` (required)
 
