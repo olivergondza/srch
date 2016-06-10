@@ -109,6 +109,10 @@ for (( pos=0 ; pos<${#args[@]} ; pos++ )); do
     _rawurlencode "${args[pos]}" "arg"
     args[$pos]=$arg
 done
-set -- "${args[@]}" # Set encoded values to positional args
 
-exec $BROWSER "$(eval "echo \"${URL}\"")"
+if [ "$(type -t URL)" == "function" ]; then
+  exec $BROWSER "$(URL "$@")"
+else
+  set -- "${args[@]}" # Set encoded values to positional args
+  exec $BROWSER "$(eval "echo \"${URL}\"")"
+fi

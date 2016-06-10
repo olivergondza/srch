@@ -24,7 +24,7 @@ To enable SRCH autocompletion source `~/.srch/completion/bash.sh` (for instance)
 
     . ~/.srch/completion/bash.sh
     # Create custom alias 's' and register it for autocompletion
-    alias s='~/.srch/srch' && complete -o nospace -F _srch s
+    alias s='~/.srch/srch' && complete -F _srch s
 
 ## Creating custom search engines
 
