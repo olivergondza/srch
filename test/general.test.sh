@@ -1,4 +1,5 @@
-export SRCH_DIR="$TEST_DIR/res/mock-srch/"
+export SRCH_ENGINES="$TEST_DIR/res/mock-srch/engines"
+export SRCH_CONFIG="$TEST_DIR/res/mock-srch/config"
 
 TST="Illegal srch dir"
 err=$(SRCH_DIR=/tmp "$SRCH" 2>&1)

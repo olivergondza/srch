@@ -1,41 +1,13 @@
 #!/bin/bash
 
-# http://stackoverflow.com/a/10660730/2091470
-function _rawurlencode() {
-    local string="${1}"
-    local strlen=${#string}
-    local encoded=""
-    local pos=0
-
-    for (( ; pos<strlen ; pos++ )); do
-       c=${string:$pos:1}
-       case "$c" in
-          [-_.~a-zA-Z0-9] )
-              o="${c}"
-          ;;
-          * )
-              printf -v o '%%%02x' "'$c"
-          ;;
-       esac
-       encoded+="${o}"
-    done
-    eval "$2='$encoded'"
-}
-
-function _print_engines() {
-    echo "Available engines:"
-    for e in $(ls $SRCH_ENGINES/); do
-        . "$SRCH_ENGINES/$e"
-        echo -e "\t $e\t$DESCRIPTION"
-        unset DESCRIPTION
-    done
-}
-
 ########
 
-: ${SRCH_DIR="$(readlink -f ~/.srch)"}
+: ${SRCH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"}
 : ${SRCH_CONFIG="$SRCH_DIR/config"}
 : ${SRCH_ENGINES="$SRCH_DIR/engines"}
+
+. "$SRCH_DIR/lib/lib.sh"
+
 if [ ! -d "$SRCH_DIR/engines" ]; then
     echo "Illegal SRCH_DIR provided: $SRCH_DIR" >&2
     exit 1
