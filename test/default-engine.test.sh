@@ -8,7 +8,7 @@ if [[ "$err" != *"SRCH_DEFAULT_ENGINE does not exist: no_such_engine"* ]]; then
 fi
 
 TST="Use default engine"
-out=$(SRCH_DIR="$TEST_DIR/res/default-srch/" SRCH_CONFIG="$TEST_DIR/res/default-srch/print.config" "$SRCH" term 2>&1)
+out=$(SRCH_ENGINES="$TEST_DIR/res/default-srch/engines" SRCH_CONFIG="$TEST_DIR/res/default-srch/print.config" "$SRCH" term 2>&1)
 if [ $? != 0 ]; then
     fail "Command should succeed. Exit code $?"
 fi

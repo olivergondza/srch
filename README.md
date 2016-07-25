@@ -20,11 +20,21 @@ To discover what engines are available and what they do, run `srch -h`.
 
 ## Autocompletion
 
-To enable SRCH autocompletion source `~/.srch/completion/bash.sh` (for instance) from .bashrc. In case you are using custom alias, remember to register that alias for completion s well.
+### Bash
 
-    . ~/.srch/completion/bash.sh
+To enable SRCH autocompletion, `source ~/.srch/completion/srch.bash` from `~/.bashrc`. In case you are using custom alias, remember to register that alias for completion s well.
+
+    . ~/.srch/completion/srch.bash
     # Create custom alias 's' and register it for autocompletion
     alias s='~/.srch/srch' && complete -F _srch s
+
+### Fish
+
+To enable SRCH autocompletion `source ~/.srch/completion/srch.fish` from `~/.config/fish/config.fish`. In case you are using custom alias, remember to register that alias for completion s well.
+
+    source ~/.srch/completion/srch.fish
+    # Use it for the alias as well
+    complete --command s --wraps srch
 
 ## Creating custom search engines
 

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 TEST_DIR="$( cd "$( dirname "$0" )" && pwd )"
 SRCH_DIR=$(readlink -f $TEST_DIR/..)
 SRCH="$SRCH_DIR/srch"
