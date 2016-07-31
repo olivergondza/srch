@@ -1,0 +1,2 @@
+DESCRIPTION="Search csfd.cz"
+URL='http://www.csfd.cz/hledat/?q=$@'
