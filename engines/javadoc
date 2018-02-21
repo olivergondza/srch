@@ -1,0 +1,2 @@
+DESCRIPTION="Search Javadoc on oracle.com"
+URL='https://www.google.com/search?q=site:docs.oracle.com/ -inurl:/api/index.html $@'
