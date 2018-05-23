@@ -20,7 +20,7 @@ function _rawurlencode() {
     for (( ; pos<strlen ; pos++ )); do
        c=${string:$pos:1}
        case "$c" in
-          [-_.~a-zA-Z0-9] )
+          [-_.~a-zA-Z0-9°] )
               o="${c}"
           ;;
           * )
