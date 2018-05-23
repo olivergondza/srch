@@ -2,7 +2,8 @@
 
 ########
 
-: ${SRCH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"}
+d="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+: ${SRCH_DIR="$d"}
 : ${SRCH_CONFIG="$SRCH_DIR/config"}
 : ${SRCH_ENGINES="$SRCH_DIR/engines"}
 
@@ -66,14 +67,18 @@ fi
 
 # urlencode all args
 if [ $# -eq 0 ]; then
-  echo "Readig search string from STDIN..." >&2
-  arg="$(cat)"
-  if grep -P '\w' <<< "$arg" > /dev/null; then
-      args=( "$arg" )
-  else
-      # Only whitespace provided via stdin - aborting
-      exit 0
-  fi
+    echo "Readig search string from STDIN..." >&2
+    arg="$(cat)"
+    # Pass line as individual argument
+    if grep -P '\w' <<< "$arg" > /dev/null; then
+        args=()
+        while IFS= read -r line; do
+            args+=("$line")
+        done <<< "$arg"
+    else
+        # Only whitespace provided via stdin - aborting
+        exit 0
+    fi
 else
   args=( "$@" )
 fi
@@ -83,8 +88,8 @@ for (( pos=0 ; pos<${#args[@]} ; pos++ )); do
 done
 
 if [ "$(type -t URL)" == "function" ]; then
-  exec $BROWSER "$(URL "$@")"
+  exec "$BROWSER" "$(URL "${args[@]}")"
 else
   set -- "${args[@]}" # Set encoded values to positional args
-  exec $BROWSER "$(eval "echo \"${URL}\"")"
+  exec "$BROWSER" "$(eval "echo \"${URL}\"")"
 fi
