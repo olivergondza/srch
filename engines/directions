@@ -1,0 +1,10 @@
+DESCRIPTION="Map directions between the points"
+function URL() {
+  url="https://www.google.com/maps/dir/"
+  for dest in "$@"; do
+    # Google maps do not seem to like %b0 escaped
+    dest=$(sed 's/%b0/°/' <<< "$dest")
+    url="${url}${dest}/"
+  done
+  echo "$url"
+}
