@@ -88,8 +88,14 @@ for (( pos=0 ; pos<${#args[@]} ; pos++ )); do
 done
 
 if [ "$(type -t URL)" == "function" ]; then
-  exec "$BROWSER" "$(URL "${args[@]}")"
+  final_url="$(URL "${args[@]}")"
 else
   set -- "${args[@]}" # Set encoded values to positional args
-  exec "$BROWSER" "$(eval "echo \"${URL}\"")"
+  final_url="$(eval "echo \"${URL}\"")"
+fi
+
+if [ ! -z "$BROWSER" ]; then
+  exec "$BROWSER" "$final_url"
+else
+  xdg-open "$final_url"
 fi
