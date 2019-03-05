@@ -16,6 +16,12 @@ To search using custom query, use `srch <ENGINE_NAME> SEARCH_QUERY`. The interpr
 
     srch github.com user:johndoe srch-fork
 
+Alternatively, the search query can be left blank and passed in via standard input. This is useful for search queries containing characters that would require quoting or escaping. To google the meaning of `|>` in Scala.
+
+    $ srch google.com 
+    What does |> do in scala?
+    ^D
+
 To discover what engines are available and what they do, run `srch -h`.
 
 ## Autocompletion
