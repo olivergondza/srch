@@ -38,7 +38,7 @@ if [[ "$err" != *"No search engine specified"* ]]; then
 fi
 
 TST="Engine does not exist"
-err=$("$SRCH" no_such_engine 2>&1)
+err=$(unset SRCH_DEFAULT_ENGINE; SRCH_CONFIG="$TEST_DIR/res/mock-srch/config" "$SRCH" no_such_engine 2>&1)
 if [ $? == 0 ]; then
     fail "Command should fail. Exit code $?"
 fi

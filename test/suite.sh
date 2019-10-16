@@ -11,11 +11,21 @@ function fail() {
 	echo -e "\t$1"
 }
 
+function run_test() {
+  echo ":: running $(basename "$1") ::" >&2
+  . "$1"
+}
+
 . "$SRCH_DIR/lib/lib.sh"
 
-for i in $(ls $TEST_DIR/*.test.sh); do
-	echo ":: running $(basename "$i") ::" >&2
-	. "$i"
-done
+if [ "$#" -gt 0 ]; then
+  for i in "$@"; do
+    run_test "$i"
+  done
+else
+  for i in $(ls "$TEST_DIR"/*.test.sh); do
+  	run_test "$i"
+  done
+fi
 
 exit $failed

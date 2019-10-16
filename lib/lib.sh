@@ -34,9 +34,9 @@ function _rawurlencode() {
 
 function _print_engines() {
     echo "Available engines:"
-    for e in $(ls $SRCH_ENGINES/); do
+    for e in "$(ls "$SRCH_ENGINES/")"; do
         . "$SRCH_ENGINES/$e"
-        echo -e "\t $e\t$DESCRIPTION"
+        echo -e "\t $e\t${DESCRIPTION:-}"
         unset DESCRIPTION
     done
 }
