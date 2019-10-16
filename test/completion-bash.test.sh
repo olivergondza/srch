@@ -1,4 +1,4 @@
-. $TEST_DIR/../completion/bash.sh
+. $TEST_DIR/../completion/srch.bash
 
 function _run() {
     COMP_WORDS=( "$@" )
