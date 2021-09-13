@@ -125,7 +125,7 @@ else
   final_url="$(set +u; eval "echo \"${URL}\"")"
 fi
 
-if [ ! -z "$BROWSER" ]; then
+if [ -v "BROWSER" ]; then
   exec "$BROWSER" "$final_url"
 else
   xdg-open "$final_url"
