@@ -1,0 +1,2 @@
+DESCRIPTION="Search ecosia.org"
+URL='https://www.ecosia.org/search?method=index&q=$@'
